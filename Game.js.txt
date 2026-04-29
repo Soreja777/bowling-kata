@@ -1,0 +1,30 @@
+class Game {
+  constructor() {
+    this.rolls = new Array(21).fill(0);
+    this.currentRoll = 0;
+  }
+
+  roll(pins) {
+    this.rolls[this.currentRoll++] = pins;
+  }
+
+  score() {
+    let score = 0;
+    let rollIndex = 0;
+    for (let frame = 0; frame < 10; frame++) {
+      if (this.rolls[rollIndex] === 10) {
+        score += 10 + this.rolls[rollIndex+1] + this.rolls[rollIndex+2];
+        rollIndex++;
+      } else if (this.rolls[rollIndex] + this.rolls[rollIndex+1] === 10) {
+        score += 10 + this.rolls[rollIndex+2];
+        rollIndex += 2;
+      } else {
+        score += this.rolls[rollIndex] + this.rolls[rollIndex+1];
+        rollIndex += 2;
+      }
+    }
+    return score;
+  }
+}
+
+module.exports = Game;
